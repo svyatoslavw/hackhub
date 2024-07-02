@@ -1,0 +1,8 @@
+name: Print pull request details
+on: workflow_dispatch
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print pull request details
+        run: echo "${{ toJSON(github) }}"

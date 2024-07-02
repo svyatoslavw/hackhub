@@ -1,0 +1,7 @@
+export { AddNews } from "./AddNews"
+export { CreateCategory } from "./CreateCategory"
+export { CreatePoll } from "./CreatePoll"
+export { CreateForumForm } from "./CreatePost"
+export { CreateSubcategory } from "./CreateSubcategory"
+export { SendComment } from "./SendComment"
+export { SendMessage } from "./SendMessage"

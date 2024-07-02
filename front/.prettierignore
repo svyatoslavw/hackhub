@@ -1,0 +1,8 @@
+# Ignore artifacts
+build/
+dist/
+.github/workflows/*
+
+# Ignore specific files
+yarn.lock
+package-lock.json

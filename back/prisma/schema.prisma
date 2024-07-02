@@ -1,0 +1,194 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  loggedAt  DateTime @map("logged_at")
+
+  email    String   @unique
+  login    String   @unique
+  image    String   @default("/uploads/default_user.png")
+  phone    String
+  password String
+  role     UserRole @default(USER)
+
+  code           String?
+  codeExpiration DateTime? @map("code_expiration")
+  isConfirmed    Boolean   @default(false) @map("is_confirmed")
+
+  news     News[]
+  posts    Post[]
+  polls    Poll[]
+  comments Comment[]
+  votes    Vote[]
+  messages Message[]
+
+  createdConversations  Conversation? @relation("creator")
+  receivedConversations Conversation? @relation("recipient")
+
+  @@map("users")
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  title   String
+  content String
+  status  PostStatus @default(PENDING)
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id])
+
+  comments Comment[]
+
+  subcategoryId String
+  subcategory   SubCategory @relation(fields: [subcategoryId], references: [id])
+
+  @@map("posts")
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name String
+  icon String
+
+  subcategories SubCategory[]
+
+  @@map("categories")
+}
+
+model SubCategory {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name String
+
+  slug String
+
+  posts Post[]
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@map("subcategories")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  content String
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id])
+
+  @@map("comments")
+}
+
+model Poll {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  question  String
+  options   Option[]
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id])
+}
+
+model Option {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  text      String
+  poll      Poll     @relation(fields: [pollId], references: [id])
+  pollId    String
+  votes     Vote[]
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  option   Option @relation(fields: [optionId], references: [id])
+  optionId String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model News {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  content   String
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id])
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  creatorId   String @unique
+  recipientId String @unique
+
+  creator   User? @relation("creator", fields: [creatorId], references: [id])
+  recipient User? @relation("recipient", fields: [recipientId], references: [id])
+
+  messages Message[]
+
+  @@map("conversations")
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  content String
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id])
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+  @@map("messages")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum PostStatus {
+  PENDING
+  PUBLISHED
+  CANCELED
+  DELETED
+}
