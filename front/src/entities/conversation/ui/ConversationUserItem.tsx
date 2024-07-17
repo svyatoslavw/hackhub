@@ -39,7 +39,7 @@ const ConversationUserItem = ({ conversation, profileId }: ConversationUserItemP
         <div
           className="line-clamp-2 w-full text-xs text-gray-300"
           dangerouslySetInnerHTML={{
-            __html: conversation?.messages[conversation.messages.length - 1]?.content || ""
+            __html: conversation.messages[conversation.messages.length - 1].content
           }}
         />
       </div>

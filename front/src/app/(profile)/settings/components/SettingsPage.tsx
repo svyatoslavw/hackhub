@@ -1,20 +1,22 @@
 "use client"
 
 import { ConfirmationAlert } from "@/app/(profile)/settings/components/ConfirmationAlert"
-import { SettingsItem } from "@/app/(profile)/settings/components/SettingsItem"
 import { useProfile } from "@/entities/user/hooks/useProfile"
+import { AccountSettings } from "./AccountSettings"
+import { DangerSettings } from "./DangerSettings"
+import { GeneralSettings } from "./GeneralSettings"
 
 const SettingsPage = () => {
   const { profile } = useProfile()
   if (!profile) return
 
   return (
-    <main className="flex flex-col items-center justify-between py-24">
-      <div className="mb-32 grid gap-4 text-center lg:mb-0 lg:w-full lg:max-w-7xl lg:grid-cols-3 lg:text-left">
+    <main className="flex w-full flex-col items-start justify-start rounded-lg p-3">
+      <div className="mx-auto flex flex-col gap-4">
         <ConfirmationAlert email={profile.email} isConfirmed={profile.isConfirmed} />
-        <SettingsItem name="email" value={profile.email} />
-        <SettingsItem name="login" value={profile.login} />
-        <SettingsItem name="phone" value={profile.phone} />
+        <GeneralSettings />
+        <AccountSettings profile={profile} />
+        <DangerSettings />
       </div>
     </main>
   )

@@ -1,22 +1,25 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-export enum EnumProductSort {
-  HIGH_PRICE = "high-price",
-  LOW_PRICE = "low-price",
+export enum EnumPostCreatedSort {
   NEWEST = "newest",
   OLDEST = "oldest"
 }
 
+export enum EnumPostDateSort {
+  DAY = "day",
+  WEEK = "week",
+  MONTH = "month",
+  YEAR = "year"
+}
+
 export type TypeDataFilters = {
-  sort?: EnumProductSort | string
+  sort?: EnumPostCreatedSort | string
+  range?: EnumPostDateSort | string
   searchTerm?: string
   username?: string
-  page?: string | number
-  perPage: string | number
-  minPrice?: string
-  maxPrice?: string
-  categoryId?: string
-  genderId?: string
+  page: string
+  perPage: string
+  subcategory?: string
 }
 export interface IFilterState {
   isFilterUpdated: boolean
@@ -31,11 +34,13 @@ export interface iFilterActiontsPayload {
 const initialState: IFilterState = {
   isFilterUpdated: false,
   queryParams: {
-    searchTerm: "",
     username: "",
-    sort: EnumProductSort.NEWEST,
-    page: 1,
-    perPage: 9
+    searchTerm: "",
+    page: "1",
+    perPage: "3",
+    subcategory: "",
+    sort: EnumPostCreatedSort.NEWEST,
+    range: EnumPostDateSort.YEAR
   }
 }
 

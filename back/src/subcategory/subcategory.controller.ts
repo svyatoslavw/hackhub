@@ -6,7 +6,7 @@ import { SubcategoryType } from "./entities/subcategory.entity"
 import { SubcategoryService } from "./subcategory.service"
 
 @ApiTags("Subcategories")
-@Controller("subcategory")
+@Controller("subcategories")
 export class SubcategoryController {
   constructor(private readonly subcategoryService: SubcategoryService) {}
 

@@ -12,7 +12,7 @@ const AuthButton = React.forwardRef<HTMLAnchorElement, AuthButtonProps>(
       <a
         ref={ref}
         href={getAuthURL(credential)}
-        className="flex w-full items-center justify-center gap-3 rounded-lg bg-primary px-3 py-2 font-medium text-background transition-colors hover:bg-primary/80"
+        className="flex w-full items-center justify-center gap-3 rounded-lg bg-primary px-3 py-2 font-medium text-foreground transition-colors hover:bg-primary/80 dark:text-background"
       >
         {children}
         <span className="capitalize">{text}</span>

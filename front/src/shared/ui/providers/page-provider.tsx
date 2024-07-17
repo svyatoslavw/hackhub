@@ -17,7 +17,7 @@ const PageProvider = ({ children }: { children: React.ReactNode }) => {
           {children}
           <div
             className={cn(
-              "fixed left-0 top-0 z-10 flex h-screen items-center justify-center bg-[#ededed] px-4 py-2 transition-opacity duration-200 hover:opacity-70 dark:bg-[#211e1e]",
+              "fixed left-0 top-0 z-10 flex h-screen items-center justify-center bg-[#ededed] px-4 py-2 transition-opacity duration-200 hover:opacity-70 dark:bg-foreground/5",
               {
                 "pointer-events-none opacity-0": !isShow,
                 "pointer-events-auto cursor-pointer opacity-100": isShow

@@ -1,13 +1,19 @@
+import { TypeDataFilters } from "@/entities/filter/model/filter.slice"
 import { postService } from "@/entities/post/api/post.service"
-import { useQuery, UseQueryOptions } from "@tanstack/react-query"
-import { AxiosResponse } from "axios"
+import { UseQueryOptions, useQuery } from "@tanstack/react-query"
 
-type TGetAllPostsQuery = UseQueryOptions<AxiosResponse<IPost[], unknown>, unknown, IPost[], any>
+type TGetAllPostsQuery = UseQueryOptions<
+  IPostResponse,
+  unknown,
+  IPostResponse,
+  (string | TypeDataFilters)[]
+> & {
+  searchParams?: TypeDataFilters
+}
 
 export const useGetAllPostsQuery = (settings?: TGetAllPostsQuery) =>
-  useQuery<AxiosResponse<IPost[], unknown>, unknown, IPost[], any>({
+  useQuery<IPostResponse, unknown, IPostResponse, (string | TypeDataFilters)[]>({
     queryKey: ["get all posts"],
-    queryFn: () => postService.getAll(),
-    select: ({ data }) => data,
+    queryFn: () => postService.getAll(settings?.searchParams),
     ...settings
   })

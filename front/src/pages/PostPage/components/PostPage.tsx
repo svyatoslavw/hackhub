@@ -8,7 +8,7 @@ const PostPage = ({ post }: { post: IPost }) => {
   return (
     <div className="relative flex flex-col gap-2">
       <PostHeader post={post} />
-      <div className="h-full w-full rounded-lg bg-[#f0f0f0] py-3 dark:bg-popover">
+      <div className="h-full w-full rounded-lg bg-foreground/[0.02] py-3">
         <div className="grid gap-2 p-3" dangerouslySetInnerHTML={{ __html: post.content }}></div>
         <PostFooter />
         <PostCommentList post={post} />

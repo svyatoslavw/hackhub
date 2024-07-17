@@ -45,7 +45,7 @@ const CreateForumForm = () => {
                     defaultValue={state.subcategoryId || field.value}
                   >
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a system" />
+                      <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
@@ -78,7 +78,7 @@ const CreateForumForm = () => {
                 <FormLabel>Title:</FormLabel>
                 <FormDescription>State in a few words what your topic is about.</FormDescription>
                 <FormControl>
-                  <Input placeholder="Введите название..." {...field} />
+                  <Input placeholder="Title..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -92,15 +92,14 @@ const CreateForumForm = () => {
                 <FormControl>
                   <MarkdownEditor description={field.name} onChange={field.onChange} />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
           <div className="flex gap-2">
-            <Button disabled={state.isLoading} type="submit">
+            <Button size={"sm"} disabled={state.isLoading || !form.formState.isValid} type="submit">
               Create a topic
             </Button>
-            <Button variant={"secondary"} disabled type="button">
+            <Button size={"sm"} variant={"secondary"} disabled type="button">
               Preview
             </Button>
           </div>

@@ -1,3 +1,5 @@
 export default function Conversations() {
-  return <div>Пожалуйста выберите чат</div>
+  return (
+    <div className="cntnr flex items-center justify-center font-medium">Please select a chat.</div>
+  )
 }

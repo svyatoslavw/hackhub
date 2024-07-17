@@ -37,7 +37,7 @@ const CreateCategory = () => {
               />
             )}
           />
-          <Button disabled={state.isLoading} type="submit">
+          <Button disabled={state.isLoading || !form.formState.isValid} type="submit">
             Create category
           </Button>
         </form>

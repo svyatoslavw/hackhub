@@ -1,8 +1,8 @@
 import { Auth } from "@/auth/decorators/auth.decorator"
 import { CurrentUser } from "@/auth/decorators/user.decorator"
-import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe } from "@nestjs/common"
+import { Body, Controller, Get, Param, Post, Query, UsePipes, ValidationPipe } from "@nestjs/common"
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger"
-import { CreatePostDto } from "./dto/post.dto"
+import { CreatePostDto, GetAllPostDto } from "./dto/post.dto"
 import { PostType } from "./entities/post.entity"
 import { PostService } from "./post.service"
 
@@ -13,9 +13,18 @@ export class PostController {
 
   @ApiOperation({ summary: "Get posts" })
   @ApiResponse({ status: 200, type: [PostType] })
+  @UsePipes(new ValidationPipe())
   @Get()
-  findAll() {
-    return this.postService.findAll()
+  findAll(@Query() queryDto: GetAllPostDto) {
+    return this.postService.findAll(queryDto)
+  }
+
+  @ApiOperation({ summary: "Take 5 posts" })
+  @ApiResponse({ status: 200, type: [PostType] })
+  @UsePipes(new ValidationPipe())
+  @Get("some")
+  takePart(@Query() queryDto: GetAllPostDto) {
+    return this.postService.takeSome(queryDto)
   }
 
   @ApiOperation({ summary: "Get post by ID" })

@@ -9,5 +9,8 @@ export const userService = {
   async getProfile() {
     const response = await axiosWithToken.get<IUser>("/users/profile")
     return response.data
+  },
+  async update(data: TypeUpdateProfile) {
+    return await axiosWithToken.patch<IUser>("/users/profile", data)
   }
 }

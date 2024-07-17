@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { Loader2Icon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { ConversationFooter } from "./ConversationFooter"
+import { ConversationHeader } from "./ConversationHeader"
 
 const ConversationPage = ({ c }: { c: IConversation }) => {
   const [isTyping, setIsTyping] = useState(false)
@@ -74,7 +75,8 @@ const ConversationPage = ({ c }: { c: IConversation }) => {
   if (!profile) return
 
   return (
-    <div className="cntnr relative w-full px-4 py-2">
+    <div className="cntnr relative w-full">
+      <ConversationHeader conversation={conversation!} profileId={profile.id} />
       {isLoading || !conversation ? (
         <Loader2Icon className="mx-auto mt-10 animate-spin items-center" />
       ) : (

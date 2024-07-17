@@ -19,21 +19,21 @@ const ConfirmationAlert = ({ email, isConfirmed }: IConfirmationAlertProps) => {
   return (
     <div
       className={cn(
-        "col-span-full flex h-10 items-center justify-center gap-3 rounded-lg border px-6 py-2 text-sm transition-all",
+        "flex h-8 items-center justify-center gap-3 rounded-lg border px-4 py-1 text-xs text-black transition-all",
         {
           "border-red-500 bg-red-400/70 dark:border-red-500 dark:bg-red-900": !isConfirmed,
-          "border-green-500 bg-green-400/70 dark:border-green-600 dark:bg-green-800": isConfirmed
+          "border-primary bg-primary/70 dark:border-primary dark:bg-primary/70": isConfirmed
         }
       )}
     >
       {isConfirmed ? (
         <>
-          <CheckCircle2Icon />
+          <CheckCircle2Icon size={18} />
           <span>Your account has been confirmed.</span>
         </>
       ) : (
         <>
-          <AlertCircleIcon />
+          <AlertCircleIcon size={18} />
           <span>You must confirm account via email.</span>
         </>
       )}

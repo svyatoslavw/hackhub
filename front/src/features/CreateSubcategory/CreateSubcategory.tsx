@@ -42,7 +42,7 @@ const CreateSubcategory = () => {
             render={({ field }) => (
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a system" />
+                  <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -58,8 +58,8 @@ const CreateSubcategory = () => {
               </Select>
             )}
           />
-          <Button disabled={state.isLoading} type="submit">
-            Create category
+          <Button disabled={state.isLoading || !form.formState.isValid} type="submit">
+            Create subcategory
           </Button>
         </form>
       </DialogContent>

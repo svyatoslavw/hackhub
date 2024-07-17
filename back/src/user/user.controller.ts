@@ -1,8 +1,8 @@
 import { Auth } from "@/auth/decorators/auth.decorator"
 import { CurrentUser } from "@/auth/decorators/user.decorator"
-import { Controller, Get, Query, UsePipes, ValidationPipe } from "@nestjs/common"
+import { Body, Controller, Get, Patch, Query, UsePipes, ValidationPipe } from "@nestjs/common"
 import { ApiHeader, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger"
-import { GetAllUserDto } from "./dto/user.dto"
+import { GetAllUserDto, UpdateUserDto } from "./dto/user.dto"
 import { UserType } from "./entities/user.entity"
 import { UserService } from "./user.service"
 
@@ -32,5 +32,19 @@ export class UserController {
   @Auth()
   async profile(@CurrentUser("id") id: string) {
     return this.userService.findById(id)
+  }
+
+  @ApiOperation({ summary: "Update user profile" })
+  @ApiHeader({
+    name: "Authorization",
+    description: "Bearer <token>",
+    required: true
+  })
+  @ApiResponse({ status: 200, type: UserType })
+  @ApiParam({ name: "id", type: String, description: "User ID" })
+  @Patch("profile")
+  @Auth()
+  async update(@Body() dto: UpdateUserDto, @CurrentUser("id") id: string) {
+    return this.userService.update(dto, id)
   }
 }

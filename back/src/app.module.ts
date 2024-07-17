@@ -18,6 +18,7 @@ import { PostModule } from "./post/post.module"
 import { PrismaService } from "./prisma.service"
 import { SubcategoryModule } from "./subcategory/subcategory.module"
 import { UserModule } from "./user/user.module"
+import { PaginationModule } from './pagination/pagination.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { UserModule } from "./user/user.module"
     GatewayModule,
     MessageModule,
     ConversationModule,
-    EventEmitterModule.forRoot()
+    EventEmitterModule.forRoot(),
+    PaginationModule
   ],
   providers: [PrismaService]
 })

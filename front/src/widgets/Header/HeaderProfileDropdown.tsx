@@ -1,3 +1,4 @@
+import { useLogoutMutation } from "@/shared/api/mutations"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,11 +8,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/shared/ui/dropdown-menu"
+import { useQueryClient } from "@tanstack/react-query"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next13-progressbar"
 
-const HeaderProfileDropdown = ({ profile }: { profile: IUser | null }) => {
-  if (!profile) return
+const HeaderProfileDropdown = ({ profile }: { profile: IUser }) => {
+  const { replace } = useRouter()
+  const queryClient = useQueryClient()
+
+  const { mutate } = useLogoutMutation({
+    onSuccess: () => {
+      queryClient.clear()
+      replace("/")
+    }
+  })
 
   return (
     <DropdownMenu>
@@ -37,14 +48,17 @@ const HeaderProfileDropdown = ({ profile }: { profile: IUser | null }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Settings</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link className="w-full" href={"/settings"}>
+              Settings
+            </Link>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Team</DropdownMenuItem>
           <DropdownMenuItem>
             <Link className="w-full" href={"/conversations"}>
-              Friends
+              Friends (Beta)
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -53,7 +67,7 @@ const HeaderProfileDropdown = ({ profile }: { profile: IUser | null }) => {
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuItem disabled>API</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={mutate}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

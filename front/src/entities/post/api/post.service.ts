@@ -1,8 +1,23 @@
 import { axiosClassic, axiosWithToken } from "@/shared/api"
 
 export const postService = {
-  async getAll() {
-    return axiosClassic.get<IPost[]>("/posts")
+  async getAll(params = {}) {
+    const response = await axiosClassic<IPostResponse>({
+      method: "GET",
+      url: "/posts",
+      params
+    })
+
+    return response.data
+  },
+  async getSome(params = {}) {
+    const response = await axiosClassic<IPostResponse>({
+      method: "GET",
+      url: "/posts/some",
+      params
+    })
+
+    return response.data
   },
   async getById(id: string) {
     return axiosClassic.get<IPost>(`/posts/${id}`)

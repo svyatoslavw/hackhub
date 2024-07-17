@@ -48,6 +48,11 @@ interface IPost {
   comments: IComment[]
 }
 
+interface IPostResponse {
+  posts: IPost[]
+  length: number
+}
+
 interface INews {
   id: string
   createdAt: string
@@ -115,6 +120,11 @@ interface IConversation {
 interface TypeCreateCategory {
   name: string
   icon: string
+}
+
+interface TypeUpdateProfile {
+  image: string
+  login: string
 }
 
 interface TypeCreateSubcategory {

@@ -2,20 +2,23 @@ import { PrismaService } from "@/prisma.service"
 import { generateSlug } from "@/utils/helpers"
 import { Injectable } from "@nestjs/common"
 import { CreateSubCategoryDto } from "./dto/subcategory.dto"
+import { returnSubCategoryObject } from "./entities/subcategory.entity"
 
 @Injectable()
 export class SubcategoryService {
   constructor(private prisma: PrismaService) {}
 
-  getAll() {
-    return this.prisma.subCategory.findMany()
+  async getAll() {
+    return this.prisma.subCategory.findMany({
+      select: returnSubCategoryObject
+    })
   }
 
-  getById(id: string) {
+  async getById(id: string) {
     return this.prisma.subCategory.findUnique({ where: { id } })
   }
 
-  create(dto: CreateSubCategoryDto) {
+  async create(dto: CreateSubCategoryDto) {
     return this.prisma.subCategory.create({
       data: {
         name: dto.name,

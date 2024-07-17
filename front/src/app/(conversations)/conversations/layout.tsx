@@ -10,7 +10,7 @@ export default function ConversationLayout({ children }: { children: React.React
   return (
     <SocketProvider token={token!}>
       <FullPageProvider>
-        <div className="cntnr flex w-full rounded-lg bg-popover dark:bg-popover">
+        <div className="cntnr flex w-full rounded-lg bg-foreground/[0.02]">
           <ConversationSidebar />
           <div className="w-full">{children}</div>
         </div>

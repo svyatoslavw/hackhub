@@ -1,13 +1,9 @@
 "use client"
-import { Fira_Sans } from "next/font/google";
 
-import { RootProvider } from "@/shared/ui/providers";
-import "./globals.css";
+import { RootProvider } from "@/shared/ui/providers"
+import "./globals.css"
 
-import { GeistSans } from 'geist/font/sans';
-
-
-const inter = Fira_Sans({ weight: ["400", "500", "600", "700"], subsets: ["cyrillic", "latin"] })
+import { GeistSans } from "geist/font/sans"
 
 export default function RootLayout({
   children

@@ -6,7 +6,7 @@ const PostCard = ({ post }: { post: IPost }) => {
   return (
     <Link
       href={`/forum/${post.id}`}
-      className="flex cursor-pointer justify-between rounded-lg p-3 transition-all hover:bg-secondary"
+      className="flex cursor-pointer justify-between bg-secondary/70 p-3 transition-all hover:bg-secondary dark:bg-secondary/30 dark:hover:bg-secondary"
     >
       <div className="flex flex-col gap-2">
         <div>{post.title}</div>

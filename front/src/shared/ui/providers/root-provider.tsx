@@ -2,6 +2,7 @@
 
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import type { AxiosError } from "axios"
+import Next13ProgressBar from "next13-progressbar"
 import { Provider } from "react-redux"
 import { toast } from "sonner"
 
@@ -34,9 +35,15 @@ const TOASTER_DURATION = 5000
 const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
-      <ThemeProvider>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
         <QueryClientProvider client={client}>
           {children}
+          <Next13ProgressBar
+            height="3px"
+            color={"#d97706"}
+            options={{ showSpinner: false }}
+            showOnShallow={true}
+          />
           <Toaster duration={TOASTER_DURATION} />
         </QueryClientProvider>
       </ThemeProvider>

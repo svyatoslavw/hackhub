@@ -42,13 +42,13 @@ const MarkdownInput = ({
               "rounded-t-lg border border-b-0 border-input bg-background p-1 transition",
               {
                 "h-0 animate-down overflow-hidden opacity-0": !isOpen,
-                "h-auto animate-up overflow-auto opacity-100": isOpen
+                "h-fit animate-up overflow-auto opacity-100": isOpen
               }
             )}
           />
           <EditorContent editor={editor} />
         </div>
-        <div className="my-1 flex gap-2">
+        <div className="flex gap-2">
           <Button
             type="button"
             variant="ghost"

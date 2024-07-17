@@ -44,3 +44,16 @@ export function debounce(func: Function, wait: number) {
     timeout = setTimeout(later, wait)
   }
 }
+
+export function getPageNumbers(current: number, total: number) {
+  const maxVisibleCount = 3
+  let start = Math.max(current - 1, 1)
+  let end = start + maxVisibleCount - 1
+
+  if (end > total) {
+    end = total
+    start = Math.max(end - maxVisibleCount + 1, 1)
+  }
+
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i)
+}

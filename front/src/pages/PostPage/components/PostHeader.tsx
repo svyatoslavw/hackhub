@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const PostHeader = ({ post }: { post: IPost }) => {
   return (
-    <div className="w-full rounded-lg bg-[#f0f0f0] p-3 dark:bg-popover">
+    <div className="w-full rounded-lg bg-foreground/[0.02] p-3">
       <h1 className="text-2xl font-medium">{post.title}</h1>
       <div className="text-sm">
         Topic in category{" "}

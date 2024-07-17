@@ -48,7 +48,9 @@ export const authService = {
   async logout() {
     const response = await axiosClassic.post<boolean>("/auth/logout")
 
-    if (response.data) removeCookiesFromStorage()
+    if (response.data) {
+      removeCookiesFromStorage()
+    }
 
     return response
   }

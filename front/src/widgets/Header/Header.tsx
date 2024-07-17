@@ -6,21 +6,36 @@ import Image from "next/image"
 import Link from "next/link"
 import { HeaderProfileDropdown } from "./HeaderProfileDropdown"
 
+const LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/forum", label: "Forum" },
+  { href: "/conversations", label: "Messages" }
+]
+
 const Header = () => {
   const { profile, isLoading } = useProfile()
 
   return (
-    <header className="mx-auto flex h-12 w-full bg-[#ededed] dark:bg-popover">
+    <header className="mx-auto flex h-12 w-full bg-foreground/[0.02]">
       <div className="mx-auto flex h-12 w-[1100px] items-center justify-between ">
-        <Link href="/">
-          <Image
-            alt="Logo"
-            src={"/logotype.png"}
-            width={36}
-            height={36}
-            className="invert-0 dark:invert"
-          />
-        </Link>
+        <div className="flex items-center gap-5">
+          <Link href="/">
+            <Image
+              alt="Logo"
+              src={"/logotype.png"}
+              width={36}
+              height={36}
+              className="invert-0 dark:invert"
+            />
+          </Link>
+          <div className="flex gap-3">
+            {LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="text-xs font-medium">
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </div>
         <div className="flex h-full items-center gap-5">
           {isLoading ? (
             <div className="flex items-center gap-2">
@@ -39,7 +54,7 @@ const Header = () => {
               </div>
             )
           )}
-          <HeaderProfileDropdown profile={profile || null} />
+          {profile && <HeaderProfileDropdown profile={profile} />}
         </div>
       </div>
     </header>

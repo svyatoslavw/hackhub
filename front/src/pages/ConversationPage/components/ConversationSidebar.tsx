@@ -2,7 +2,7 @@
 import { ConversationSearchedItem } from "@/entities/conversation/ui/ConversationSearchedItem"
 import { ConversationUserItem } from "@/entities/conversation/ui/ConversationUserItem"
 import { useProfile } from "@/entities/user/hooks/useProfile"
-import { CreateConversation } from "@/features/CreateConversation/CreateConversation"
+import { CreateConversation } from "@/features"
 import { useGetAllUsersQuery } from "@/shared/api/queries/useGetAllUsersQuery"
 import { useGetConversationsByUserIdQuery } from "@/shared/api/queries/useGetConversationsByUserIdQuery"
 import { useFilter } from "@/shared/lib/hooks/useFilter"
@@ -13,7 +13,7 @@ import { ConversationSkeleton } from "./ConversationSkeleton"
 const ConversationSidebar = () => {
   const { profile } = useProfile()
   const { data } = useGetConversationsByUserIdQuery()
-  const { isFilterUpdated, queryParams, updateQueryParams } = useFilter()
+  const { isFilterUpdated, queryParams, updateQueryParams } = useFilter(false)
 
   const { data: users, isLoading } = useGetAllUsersQuery(queryParams, {
     queryKey: ["get all users", queryParams],
@@ -31,13 +31,17 @@ const ConversationSidebar = () => {
         <Input onChange={(e) => handleSearch(e)} placeholder="Search users..." />
       </div>
       {!queryParams.username ? (
-        data?.map((conversation) => (
-          <ConversationUserItem
-            key={conversation.id}
-            conversation={conversation}
-            profileId={profile.id}
-          />
-        ))
+        data && data.length ? (
+          data.map((conversation) => (
+            <ConversationUserItem
+              key={conversation.id}
+              conversation={conversation}
+              profileId={profile.id}
+            />
+          ))
+        ) : (
+          <span className="mt-3 text-center text-sm">no messages.</span>
+        )
       ) : isLoading ? (
         <ConversationSkeleton />
       ) : (

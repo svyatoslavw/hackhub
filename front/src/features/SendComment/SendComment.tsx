@@ -14,7 +14,7 @@ const SendComment = () => {
   const { form, functions, state } = useSendComment(pathname || "")
 
   return (
-    <div className="fixed bottom-0 flex w-[1100px] items-end gap-2 rounded-lg bg-popover p-3">
+    <div className="fixed bottom-0 flex w-[1100px] items-end gap-2 bg-popover p-3">
       {profile ? (
         <Image
           className="rounded-full"
